@@ -22,14 +22,15 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly: 
-  drawPiece(1);
+  drawPiece(random(1,7));
+  //drawPiece(5);
   int x = 0;
   do {
     drawMap();
     x++;
     delay(1);
   } 
-  while (x < 200);
+  while (x < 100);
   alloff();
   delay(250);
 }
@@ -55,11 +56,11 @@ void drawMap() {
       else {
         digitalWrite(col[j],HIGH);
       }
-      //delay(5);
-      //Serial.print(grid[i][j]);
-      //delay(100);
     }
     digitalWrite(row[i], LOW);
+    for(int j = 0; j < 6; j++) {
+      digitalWrite(col[j],HIGH);
+    }
     delay(5);
     //Serial.println();
   } 
@@ -85,22 +86,23 @@ void drawPiece(int num) {
       grid[2][3] = 1;
       break;
     case 4:
-      grid[0][2] = grid[0][3] = grid[0][4] = 1;
-      grid[1][4] = 1;
-      break;
-    case 5:
-      grid[0][2] = grid[0][3] = grid[0][4] = 1;
-      grid[1][2] = 1;
-      break;
-    case 6:
       grid[0][2] = 1;
       grid[1][2] = grid[1][3] = 1;
       grid[2][3] = 1;
       break;
-        case 7:
+    case 5:
       grid[0][3] = 1;
       grid[1][2] = grid[1][3] = 1;
       grid[2][2] = 1;
+      break;
+    case 6:
+      grid[0][2] = grid[0][3] = grid[0][4] = 1;
+      grid[1][4] = 1;
+      break;
+    case 7:
+      grid[0][2] = grid[0][3] = grid[0][4] = 1;
+      grid[1][2] = 1;
+      break;
     default:
       break;
     }
@@ -110,6 +112,10 @@ void drawPiece(int num) {
 boolean enoughSpace(int num) {
   return true; 
 }
+
+
+
+
 
 
 
