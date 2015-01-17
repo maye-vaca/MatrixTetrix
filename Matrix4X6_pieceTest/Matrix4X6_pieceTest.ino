@@ -1,11 +1,11 @@
 int row[] = {
-  9,10,11,12};
+  12,11,10,9};
 int col[] = {
-  2,3,4,5,6,8};
+  8,7,6,5,4,3};
 
 int numRows = 4;
 int numCols = 6;
-int grid[][] = new int[numRows][numCols];
+int grid[4][6];
 
 void setup() {
   // put your setup code here, to run once:
@@ -16,14 +16,18 @@ void setup() {
   for (int i = 0; i < numCols; i++) {
     pinMode(col[i], OUTPUT);
   }
+  drawPiece(2);
   alloff();
-  drawPiece(1);
 }
 
 void loop() {
   // put your main code here, to run repeatedly: 
-  drawPiece(random(1,4));
-  alloff();
+  //drawPiece(random(1,2));
+  
+  drawMap();
+  //delay(500);
+  //alloff();
+  //delay(500);
 }
 
 void alloff() {
@@ -31,35 +35,44 @@ void alloff() {
     digitalWrite(row[i], LOW);
   }
   for (int j = 0; j < numCols; j++) {
-    digitalWrite(col[i], HIGH); 
+    digitalWrite(col[j], HIGH); 
   }
 }
 
 void drawMap() {
-  for (int i = 0; i < numRows; i++) {
-    for (int j = 0; j < numCols; j++) {
+  alloff();
+  Serial.print("GRID:\n");
+  for (int i = 0; i < 4; i++) {
+    for (int j = 0; j < 6; j++) {
       if(grid[i][j]) {
-        digitalWrite(row[i], LOW);
-        digitalWrite(col[i], HIGH); 
+        digitalWrite(row[i], HIGH);
+        digitalWrite(col[i], LOW); 
       }
+      
+      Serial.print(grid[i][j] + " ");
       delay(100);
-      alloff();
     }
+    Serial.println();
   } 
 
 }
 
 void drawPiece(int num) {
+  Serial.println(num);
   if (enoughSpace(num)) {
     switch (num) {
-      case (1): 
+      case 1: 
         for (int i = 0; i < 4; i++) {
           grid[1][i] = 1; 
         }
         break;
-     case(2):
+     case 2:
        grid[0][2] = grid[0][3] = grid[1][2] = grid[1][3] = 1;
-       
+       break;
+     default:
+       break;
+    }
+  }
 }
 
 boolean enoughSpace(int num) {
